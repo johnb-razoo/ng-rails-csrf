@@ -1,7 +1,10 @@
 angular.module('ng-rails-csrf', [] ).config(['$httpProvider', function($httpProvider) {    
     var getToken = function() { 
-        var el = document.querySelector('meta[name="csrf-token"]');
-        return el && el.getAttribute('content');
+        // Rails 3+
+        //var el = document.querySelector('meta[name="csrf-token"]');
+        //return el && el.getAttribute('content');
+        // Rails 2
+        return document.querySelector('input[name="authenticity_token"]').value;
     };
     var updateToken = function() {
         var headers = $httpProvider.defaults.headers.common, token = getToken();
